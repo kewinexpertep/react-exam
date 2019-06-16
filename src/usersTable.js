@@ -80,16 +80,17 @@ class UsersTable extends React.Component {
   }
   render() {
     let pageCurrent = this.state.pageCurrent
-    let top = Math.ceil(this.props.users.length/5)
+    let users = this.props.users
+    let top = Math.ceil(users.length/5)
     let listUser = [];
     let pagination = [];
-    if (0 === this.props.users.length) {
+    if (0 === users.length) {
       listUser.push(
-        <td className="text-center" colSpan="6">Nothing</td>
+        <td key={0} className="text-center" colSpan="6">Nothing</td>
       )
     }
-    for (let i = pageCurrent * 5; i < (pageCurrent + 1) * 5 && i < this.props.users.length; i++) {
-      let user = this.props.users[i]
+    for (let i = pageCurrent * 5; i < (pageCurrent + 1) * 5 && i < users.length; i++) {
+      let user = users[i]
       listUser.push(<tr key={i}>
       <th scope="row"><input type="checkbox" name={'checkbox_' + i} id="" checked={this.checkSelect(i)} onChange={this.handleCheckbox}/></th>
       <td>{user.firstname + ' ' + user.lastname}</td>
@@ -102,14 +103,14 @@ class UsersTable extends React.Component {
       </td>
     </tr>)
     }
-    if (0 === this.props.users.length) {
+    if (0 === users.length) {
       pagination.push(
-        <li className={"page-item active"}><a className="page-link">1</a></li>
+        <li key={0} className={"page-item active"}><button className="page-link">1</button></li>
       )
     }
     for (let i = 0; i < top; i++) {
       pagination.push(
-        <li key={i} className={(pageCurrent === i)?"page-item active":"page-item"}><a className="page-link" name={i} onClick={this.handleChangePage}>{(i + 1)}</a></li>
+        <li key={i} className={(pageCurrent === i)?"page-item active":"page-item"}><button className="page-link" name={i} onClick={this.handleChangePage}>{(i + 1)}</button></li>
       )
     }
     return (
@@ -123,11 +124,11 @@ class UsersTable extends React.Component {
           <nav className="col-md-4 text-right">
             <ul className="pagination">
               <li className={(0 < pageCurrent)?"page-item":"page-item disabled"}>
-                <a className="page-link" name="previous" onClick={this.pageStep}>Previous</a>
+                <button className="page-link" name="previous" onClick={this.pageStep}>Previous</button>
               </li>
               {pagination}
               <li className={(top-1 > pageCurrent)?"page-item":"page-item disabled"}>
-                <a className="page-link" name="next" onClick={this.pageStep}>Next</a>
+                <button className="page-link" name="next" onClick={this.pageStep}>Next</button>
               </li>
             </ul>
           </nav>

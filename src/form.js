@@ -120,33 +120,16 @@ class Form extends React.Component {
     else delete alert.birthday
     if (user.phone.length < 5) alert['phone'] = 'Please fill phone number'
     else delete alert.phone
-    console.log(alert === {})
-    if (Object.getOwnPropertyNames(alert).length === 0) {
-      if (this.props.editIndex !== null) {
-        this.props.updateUser(this.state.user)
-      }
-      else this.props.addUser(this.state.user)
-    }
     this.setState({
       ...this.state,
       alert: alert
     })
-  }
-  componentWillReceiveProps (nextProps) {
-    console.log('ReceiveProps',nextProps.editIndex)
-    let editIndex = nextProps.editIndex
-    if (editIndex !== null && nextProps.editUser) {
-      let citizenId = nextProps.editUser.citizenId
-      let ids = [citizenId.substr(0,1), citizenId.substr(1,4), citizenId.substr(5,5),citizenId.substr(10,2),citizenId.substr(12,1)]
+    if (Object.getOwnPropertyNames(alert).length === 0) {
+      if (this.props.editIndex !== null) {
+        this.props.updateUser(user)
+      }
+      else this.props.addUser(user)
       this.setState({
-        user: nextProps.editUser,
-        ids: ids,
-        alert: {}
-      })
-    }
-    else {
-      this.setState({
-        ...this.state,
         user: {
           title: 'Mr',
           firstname: '',
@@ -159,7 +142,22 @@ class Form extends React.Component {
           passport: '',
           exSalary: ''
         },
-        ids: ['','','','','']
+        ids: ['','','','',''],
+      })
+    }
+
+    
+  }
+  componentWillReceiveProps (nextProps) {
+    console.log('ReceiveProps',nextProps.editIndex)
+    let editIndex = nextProps.editIndex
+    if (editIndex !== null && nextProps.editUser) {
+      let citizenId = nextProps.editUser.citizenId
+      let ids = [citizenId.substr(0,1), citizenId.substr(1,4), citizenId.substr(5,5),citizenId.substr(10,2),citizenId.substr(12,1)]
+      this.setState({
+        user: nextProps.editUser,
+        ids: ids,
+        alert: {}
       })
     }
   }

@@ -6,7 +6,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux'
 var users = JSON.parse(localStorage.getItem('users'));
 const initalState = {
-    users: users,
+    users: users||[],
     editIndex: null,
     editUser: {},
     update: 0
@@ -74,7 +74,21 @@ store.subscribe(() => {
     console.log("update", store.getState());
     localStorage.setItem("users", JSON.stringify(store.getState().users));
 })
-
+/* store.dispatch({
+    type: 'ADD',
+    payload: {
+        title: 'Mr',
+        firstname: 'dsd',
+        lastname: 'sdsd',
+        birthday: '2011-11-11',
+        nationality: 'Thailand',
+        citizenId: '',
+        gender: 'male',
+        phone: '+66 555555555',
+        passport: '',
+        exSalary: '1000'
+      }
+}) */
 ReactDOM.render(
     <Provider store={store}>
         <App />
