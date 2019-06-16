@@ -16,6 +16,7 @@ code {
 .App {
   
 }
-.col {
-  margin-bottom: 10px;
+.country-selector {
+  height: 38px;
+  border: 1px solid #ced4da;
 }
